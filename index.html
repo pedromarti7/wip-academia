@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WIP Academia - Treine sem limites com nossas modalidades exclusivas">
+  <title>WIP Academia - Fitness • Wellness • Gym</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111;
+      --text-light: #fff;
+      --text-muted: #aaa;
+      --brand: #ffae00;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-light);
+      scroll-behavior: smooth;
+    }
+    
+    /* Header melhorado */
+    header {
+      background: var(--bg-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo-container {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+    }
+    .logo-container h1 { 
+      margin: 0; 
+      font-size: 28px; 
+      color: var(--brand); 
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .logo-container span {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: -6px;
+      letter-spacing: 2px;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+    nav a:hover { color: var(--brand); }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+    }
+    
+    /* Hero section melhorada */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX16-1024x1024.webp') center/cover no-repeat fixed;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+    }
+    .hero-content { 
+      position: relative; 
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    .hero h1 { 
+      font-size: 3.5rem; 
+      margin: 0 0 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: var(--text-muted);
+    }
+    .hero button {
+      margin-top: 20px;
+      padding: 15px 35px;
+      background: var(--brand);
+      border: none;
+      color: var(--bg-primary);
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+    .hero button:hover { 
+      opacity: 0.9;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 174, 0, 0.4);
+    }
+    
+    /* Seções comuns */
+    section { 
+      padding: 80px 20px; 
+      text-align: center; 
+    }
+    section h2 { 
+      font-size: 2.5rem; 
+      margin-bottom: 15px; 
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--brand);
+    }
+    section p.lead { 
+      color: var(--text-muted); 
+      max-width: 700px; 
+      margin: 0 auto 50px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    /* Modalidades melhorada */
+    .modalidades-container {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .modalidades-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .modalidades-info {
+      max-width: 50%;
+    }
+    .modalidades-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+    .swiper { 
+      width: 100%; 
+      padding: 30px 0 50px; 
+    }
+    .swiper-slide { 
+      background: #121212; 
+      border-radius: 10px; 
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,.3);
+      transition: transform 0.3s ease;
+    }
+    .swiper-slide:hover {
+      transform: translateY(-10px);
+    }
+    .swiper-slide img { 
+      width: 100%; 
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .swiper-slide:hover img {
+      transform: scale(1.05);
+    }
+    .swiper-slide h3 { 
+      margin: 0; 
+      padding: 20px 10px; 
+      font-size: 1.3rem; 
+    }
+    .swiper-pagination-bullet { 
+      background: var(--text-light); 
+      opacity: .4; 
+      width: 12px;
+      height: 12px;
+    }
+    .swiper-pagination-bullet-active { 
+      background: var(--brand); 
+      opacity: 1; 
+    }
+    .swiper-button-prev, 
+    .swiper-button-next { 
+      color: var(--brand);
+      background: rgba(0,0,0,0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .swiper-button-prev:after, 
+    .swiper-button-next:after {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    /* Nossa História */
+    .historia {
+      background: var(--bg-secondary);
+      text-align: left;
+    }
+    .historia-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .historia-content h2 {
+      text-align: left;
+      margin-bottom: 30px;
+    }
+    .historia-content p {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .historia-img {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .historia-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Diferenciais */
+    .grid { display: grid; gap: 30px; }
+    @media(min-width:768px){ .grid-3 { grid-template-columns: repeat(3,1fr);} }
+    .card { 
+      background: #121212; 
+      padding: 40px 30px; 
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      border-bottom: 3px solid var(--brand);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .card h3 { 
+      margin-top: 0; 
+      color: var(--brand); 
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    /* Galeria melhorada */
+    .gallery { 
+      display: grid; 
+      gap: 15px; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      aspect-ratio: 1/1;
+    }
+    .gallery-item img { 
+      width: 100%; 
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    
+    /* Planos */
+    .pricing { 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .plan { 
+      background:#121212; 
+      border-radius:10px; 
+      padding:40px 30px; 
+      width:100%;
+      max-width: 350px;
+      transition: all 0.3s ease;
+      border: 1px solid #222;
+    }
+    .plan:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 1px solid var(--brand);
+    }
+    .plan h3 { 
+      margin:0 0 15px; 
+      font-size: 1.5rem;
+      color: var(--brand);
+    }
+    .price { 
+      font-size:2.5rem; 
+      margin:20px 0; 
+      color:var(--brand);
+      font-weight: 700;
+    }
+    .price span {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .plan ul { 
+      list-style:none; 
+      padding:0; 
+      text-align:center; 
+      margin: 30px 0;
+    }
+    .plan li { 
+      margin:15px 0; 
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 20px;
+    }
+    .plan li::before {
+      content: '✓';
+      color: var(--brand);
+      position: absolute;
+      left: 0;
+    }
+    .plan button { 
+      margin-top:20px; 
+      width:100%; 
+      padding:15px; 
+      background:var(--brand); 
+      border:0; 
+      color:var(--bg-primary); 
+      cursor:pointer; 
+      border-radius:30px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+    .plan button:hover {
+      opacity: 0.9;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 174, 0, 0.4);
+    }
+    
+    /* Depoimentos */
+    .depoimentos {
+      background: var(--bg-secondary);
+    }
+    .depoimento-slide {
+      background: #121212;
+      padding: 30px;
+      border-radius: 10px;
+      margin: 20px;
+      text-align: center;
+    }
+    .depoimento-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      border: 3px solid var(--brand);
+    }
+    .depoimento-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .depoimento-texto {
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .depoimento-autor {
+      font-weight: 600;
+      color: var(--brand);
+    }
+    
+    /* Contato */
+    .contato-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      text-align: left;
+    }
+    .contato-info h3 {
+      color: var(--brand);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    .contato-info p {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    .contato-info i {
+      margin-right: 10px;
+      color: var(--brand);
+      width: 20px;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: #121212;
+      border: 1px solid #222;
+      border-radius: 5px;
+      color: var(--text-light);
+    }
+    .form-group textarea {
+      min-height: 150px;
+    }
+    
+    /* Footer melhorado */
+    footer { 
+      background: var(--bg-secondary); 
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      text-align: left;
+    }
+    .footer-col h3 {
+      color: var(--brand);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
+    .footer-col p, .footer-col a {
+      color: var(--text-muted);
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      text-decoration: none;
+      display: block;
+    }
+    .footer-col a:hover {
+      color: var(--brand);
+    }
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #121212;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      background: var(--brand);
+      color: #000;
+    }
+    .copyright {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #222;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    
+    /* WhatsApp flutuante */
+    .whatsapp-float {
+      position: fixed; 
+      bottom: 30px; 
+      right: 30px; 
+      background:#25d366; 
+      color:#fff; 
+      display:flex; 
+      align-items:center; 
+      padding:15px 20px; 
+      border-radius:50px; 
+      text-decoration:none; 
+      z-index:1000; 
+      box-shadow:0 5px 15px rgba(0,0,0,.3);
+      transition: all 0.3s ease;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.4);
+      background: #128C7E;
+    }
+    .whatsapp-float img { 
+      width:24px; 
+      margin-right:10px; 
+    }
+    
+    /* Responsivo */
+    @media (max-width: 992px) {
+      .historia-container,
+      .contato-container,
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      .footer-container {
+        gap: 30px;
+      }
+      .modalidades-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .modalidades-info {
+        max-width: 100%;
+        margin-top: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+      .logo-container {
+        margin-bottom: 15px;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      nav a {
+        margin: 0 10px 10px;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      section {
+        padding: 60px 20px;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      section h2 {
+        font-size: 2rem;
+      }
+      .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 15px;
+        font-size: 14px;
+      }
+      .whatsapp-float img {
+        width: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <h1>WIP</h1>
+      <span>Fitness • Wellness • Gym</span>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#modalidades">Modalidades</a>
+      <a href="#historia">Nossa História</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#planos">Planos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Transforme seu corpo, eleve sua mente</h1>
+      <p>Na WIP Academia, oferecemos treinos personalizados e estrutura completa para você alcançar seus objetivos.</p>
+      <button onclick="window.location.href='https://wa.me/5599999999999'">Agendar Aula Experimental</button>
+    </div>
+  </section>
+
+  <section id="modalidades">
+    <div class="modalidades-container">
+      <div class="modalidades-header">
+        <h2>Modalidades</h2>
+        <div class="modalidades-info">
+          <h3>Versatilidade, o treino ideal para cada vibe.</h3>
+          <h3>Agendamento através do WhatsApp.</h3>
+        </div>
+      </div>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX16-768x768.webp" alt="SIX 360º"><h3>SIX 360º</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX21-768x768.webp" alt="SIX Calistenia"><h3>SIX Calistenia</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX13-768x768.webp" alt="SIX Dance"><h3>SIX Dance</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX12-768x768.webp" alt="SIX Pilates"><h3>SIX Pilates</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX14-768x768.webp" alt="SIX LPF"><h3>SIX LPF</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX18-768x768.webp" alt="SIX Ride"><h3>SIX Ride</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX17-768x768.webp" alt="SIX GAP"><h3>SIX GAP</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX10-768x768.webp" alt="SIX Muscle"><h3>SIX Muscle</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX6-768x768.webp" alt="SIX Scoup"><h3>SIX Scoup</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX_strike-768x768.webp" alt="SIX Strike"><h3>SIX Strike</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX2-768x768.webp" alt="SIX Cross"><h3>SIX Cross</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/WhatsApp-Image-2025-02-10-at-10.31.04-768x768.jpeg" alt="SIX Beach"><h3>SIX Beach</h3></div>
+          <div class="swiper-slide"><img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX5-768x768.webp" alt="SIX Moby"><h3>SIX Moby</h3></div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="historia" id="historia">
+    <div class="historia-container">
+      <div class="historia-content">
+        <h2>Nossa História</h2>
+        <p>Fundada em 2020, a WIP Academia nasceu da paixão por transformar vidas através do esporte e atividade física. Nosso objetivo sempre foi oferecer mais do que um local para treinar, mas sim uma comunidade onde cada aluno se sente parte de algo maior.</p>
+        <p>Com profissionais altamente qualificados e uma estrutura pensada para seu conforto e performance, ajudamos você a alcançar seus objetivos, seja qual for seu nível de condicionamento físico.</p>
+        <p>Na WIP, acreditamos que a mudança começa de dentro para fora, e estamos aqui para acompanhar cada passo dessa jornada.</p>
+      </div>
+      <div class="historia-img">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX19-768x768.webp" alt="Nossa Academia">
+      </div>
+    </div>
+  </section>
+
+  <section id="diferenciais">
+    <h2>Diferenciais</h2>
+    <p class="lead">Tudo que você precisa para evoluir com segurança e performance.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Instrutores Certificados</h3>
+        <p>Nossa equipe é composta por profissionais altamente qualificados e em constante atualização para acompanhar cada treino e garantir seus resultados.</p>
+      </div>
+      <div class="card">
+        <h3>Estrutura Premium</h3>
+        <p>Equipamentos modernos, ambiente climatizado e espaços projetados para oferecer o máximo de conforto e eficiência em seus treinos.</p>
+      </div>
+      <div class="card">
+        <h3>Nutrição & Avaliação</h3>
+        <p>Suporte completo com avaliações físicas periódicas e orientação nutricional para potencializar seus resultados e conquistar seus objetivos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <h2>Galeria</h2>
+    <p class="lead">Conheça um pouco mais do nosso espaço e estrutura</p>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX10-768x768.webp" alt="Galeria 1" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX17-768x768.webp" alt="Galeria 2" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX5-768x768.webp" alt="Galeria 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX6-768x768.webp" alt="Galeria 4" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX7-768x768.webp" alt="Galeria 5" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://sixsportlife.com.br/wp-content/uploads/2025/03/APP_SIX8-768x768.webp" alt="Galeria 6" />
+      </div>
+    </div>
+  </section>
+
+  <section id="planos">
+    <h2>Planos</h2>
+    <p class="lead">Escolha o plano que combina com seu momento.</p>
+    <div class="pricing">
+      <div class="plan">
+        <h3>Mensal</h3>
+        <p class="price">R$99 <span>/mês</span></p>
+        <ul>
+          <li>Acesso ilimitado à academia</li>
+          <li>Participação em aulas coletivas</li>
+          <li>Avaliação física inicial</li>
+          <li>Sem taxa de cancelamento</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/5599999999999'">Quero esse</button>
+      </div>
+      <div class="plan">
+        <h3>Trimestral</h3>
+        <p class="price">R$269 <span>/trimestre</span></p>
+        <ul>
+          <li>Todos os benefícios do plano mensal</li>
+          <li>1 Personal trainer online</li>
+          <li>Avaliação física trimestral</li>
+          <li>Desconto em suplementos</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/5599999999999'">Quero esse</button>
+      </div>
+      <div class="plan">
+        <h3>Anual</h3>
+        <p class="price">R$899 <span>/ano</span></p>
+        <ul>
+          <li>Todos os benefícios anteriores</li>
+          <li>Camiseta exclusiva WIP</li>
+          <li>Acesso VIP a eventos</li>
+          <li>2 avaliações físicas anuais</li>
+          <li>Desconto em consultoria nutricional</li>
+        </ul>
+        <button onclick="window.location.href='https://wa.me/5599999999999'">Quero esse</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="depoimentos">
+    <h2>Depoimentos</h2>
+    <p class="lead">O que nossos alunos dizem sobre a WIP</p>
+    <div class="swiper depoimentosSwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="depoimento-slide">
+            <div class="depoimento-avatar">
+              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Aluna">
+            </div>
+            <p class="depoimento-texto">"Na WIP encontrei não só um lugar para treinar, mas uma verdadeira família fitness. Os instrutores são incríveis e me ajudaram a perder 15kg em 6 meses!"</p>
+            <p class="depoimento-autor">- Ana Carolina</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="depoimento-slide">
+            <div class="depoimento-avatar">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Aluno">
+            </div>
+            <p class="depoimento-texto">"Depois de anos sedentário, a WIP me mostrou que nunca é tarde para começar. Hoje, aos 50 anos, me sinto melhor do que aos 30!"</p>
+            <p class="depoimento-autor">- Carlos Alberto</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="depoimento-slide">
+            <div class="depoimento-avatar">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Aluna">
+            </div>
+            <p class="depoimento-texto">"A estrutura é fantástica e as aulas em grupo são super animadas. Nunca me diverti tanto fazendo exercícios!"</p>
+            <p class="depoimento-autor">- Juliana Santos</p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <h2>Contato</h2>
+    <p class="lead">Entre em contato conosco para mais informações</p>
+    <div class="contato-container">
+      <div class="contato-info">
+        <h3>Informações</h3>
+        <p><i>📍</i> Rua Eugênio Augusto de Medeiros, 232 - Capão Bonito</p>
+        <p><i>📞</i> (99) 99999-9999</p>
+        <p><i>✉️</i> contato@wipacademia.com.br</p>
+        <p><i>⏰</i> Segunda a Sexta: 6h às 22h<br>Sábado: 8h às 14h<br>Domingo: Fechado</p>
+        <div class
